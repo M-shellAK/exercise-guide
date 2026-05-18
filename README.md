@@ -1,2 +1,715 @@
-# fitness-guide
-Fitness Guide
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0a">
+<title>Exercise Guide — Michelle</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&family=Barlow:wght@400;500&display=swap');
+
+:root {
+  --red: #e8341a;
+  --dark: #0a0a0a;
+  --card: #161616;
+  --border: #252525;
+  --text: #f0ece4;
+  --muted: #888;
+  --green: #3aaa50;
+  --green-bg: #0a1f0e;
+  --green-bdr: #1a4a22;
+  --amber: #d4880a;
+  --amber-bg: #1a1000;
+  --amber-bdr: #3a2800;
+  --safe-top: env(safe-area-inset-top);
+  --safe-bot: env(safe-area-inset-bottom);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { background: var(--dark); }
+body {
+  background: var(--dark); color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  max-width: 430px; margin: 0 auto;
+  padding-bottom: calc(20px + var(--safe-bot));
+}
+
+/* ── HEADER ── */
+.site-header {
+  padding: calc(var(--safe-top) + 18px) 16px 14px;
+  background: var(--dark); border-bottom: 2px solid var(--red);
+  position: sticky; top: 0; z-index: 30;
+}
+.site-eye {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: .22em; color: var(--red); text-transform: uppercase; margin-bottom: 2px;
+}
+.site-title { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: .05em; line-height: 1; }
+.site-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+/* ── FILTER NAV ── */
+.filter-row {
+  display: flex; gap: 6px; overflow-x: auto; padding: 12px 16px;
+  background: #0d0d0d; border-bottom: 1px solid var(--border);
+  -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  position: sticky; top: calc(var(--safe-top) + 74px); z-index: 20;
+}
+.filter-row::-webkit-scrollbar { display: none; }
+.filter-btn {
+  flex-shrink: 0; background: none; border: 1px solid var(--border);
+  color: var(--muted); padding: 6px 14px;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; cursor: pointer; white-space: nowrap;
+  transition: all .15s;
+}
+.filter-btn.active { background: var(--red); border-color: var(--red); color: var(--text); }
+
+/* ── DAY HEADER ── */
+.day-header {
+  padding: 20px 16px 8px;
+  display: flex; align-items: baseline; gap: 12px;
+}
+.day-tag {
+  font-family: 'Bebas Neue', sans-serif; font-size: 48px;
+  color: var(--red); letter-spacing: .04em; line-height: 1;
+}
+.day-name-block {}
+.day-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: .04em; line-height: 1; }
+.day-muscles { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+/* ── EXERCISE CARD ── */
+.ex-card {
+  margin: 0 16px 16px;
+  background: var(--card); border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.ex-card-num {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: .2em; color: var(--muted); text-transform: uppercase;
+  padding: 10px 16px 0;
+}
+
+.ex-card-name {
+  font-family: 'Bebas Neue', sans-serif; font-size: 40px;
+  letter-spacing: .04em; line-height: 1;
+  padding: 4px 16px 8px; color: var(--text);
+}
+
+.ex-card-tags {
+  display: flex; align-items: center; gap: 8px; padding: 0 16px 12px; flex-wrap: wrap;
+}
+.muscle-tag {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  background: #1e1e1e; color: var(--text); padding: 4px 12px; border: 1px solid #2e2e2e;
+}
+.sets-badge {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); border: 1px solid var(--border); padding: 4px 12px;
+}
+.video-btn {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--red); border: 1px solid #3a1206; background: #150602;
+  padding: 4px 12px; text-decoration: none; display: flex; align-items: center; gap: 5px;
+}
+
+/* ── SECTIONS ── */
+.ex-section {
+  border-top: 1px solid var(--border); padding: 14px 16px;
+}
+
+.sec-lbl {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase; margin-bottom: 8px;
+}
+
+/* Coaching */
+.sec-coach .sec-lbl { color: var(--green); }
+.cue-text {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 16px;
+  color: var(--text); line-height: 1.65;
+}
+
+/* Feel */
+.sec-feel { background: var(--green-bg); border-top: 1px solid var(--green-bdr); }
+.sec-feel .sec-lbl { color: var(--green); }
+.feel-text {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 15px;
+  color: #aaa; line-height: 1.6;
+}
+
+/* Avoid */
+.sec-avoid { background: #150802; border-top: 1px solid #3a1a08; }
+.sec-avoid .sec-lbl { color: var(--red); }
+.avoid-item {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 15px;
+  color: #c06040; line-height: 1.6;
+  display: flex; align-items: flex-start; gap: 8px; margin-bottom: 4px;
+}
+.avoid-item::before { content: '✕'; color: var(--red); font-size: 13px; margin-top: 2px; flex-shrink: 0; }
+
+/* Starting weight */
+.sec-weight { background: #0d0d0d; }
+.sec-weight .sec-lbl { color: var(--amber); }
+.weight-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.weight-item { text-align: center; }
+.weight-val { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--text); letter-spacing: .04em; line-height: 1; }
+.weight-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-top: 2px; }
+
+/* Knee note */
+.knee-note {
+  border-top: 1px solid #3a2808; background: var(--amber-bg); padding: 12px 16px;
+}
+.knee-lbl {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--amber); margin-bottom: 5px;
+}
+.knee-text {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 14px; color: #aa7030; line-height: 1.6;
+}
+
+/* ── DAY SECTION ── */
+.day-section { margin-bottom: 8px; }
+.day-section.hidden { display: none; }
+
+/* ── BACK TO TOP ── */
+.back-top {
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px; margin: 0 16px;
+  background: none; border: 1px solid var(--border); cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--muted); width: calc(100% - 32px);
+}
+
+/* ── TRACKER LINK ── */
+.tracker-link {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 12px 16px 0; padding: 14px 16px;
+  background: var(--red); color: var(--text); text-decoration: none;
+}
+.tl-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .8; margin-bottom: 2px; }
+.tl-name { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: .04em; }
+.tl-arrow { font-size: 22px; }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="site-eye">Michelle Ah Kuoi</div>
+  <div class="site-title">EXERCISE GUIDE</div>
+  <div class="site-sub">6-Week Recomposition Plan · May–Jun 2026</div>
+</div>
+
+<div class="filter-row">
+  <button class="filter-btn active" onclick="filterDay('all',this)">All</button>
+  <button class="filter-btn" onclick="filterDay('a',this)">Day A — Upper</button>
+  <button class="filter-btn" onclick="filterDay('b',this)">Day B — Glutes</button>
+  <button class="filter-btn" onclick="filterDay('c',this)">Day C — Posterior</button>
+  <button class="filter-btn" onclick="filterDay('d',this)">Day D — Cardio</button>
+</div>
+
+<a class="tracker-link" href="index.html">
+  <div><div class="tl-label">Open App</div><div class="tl-name">Fitness Tracker →</div></div>
+  <div class="tl-arrow">⬡</div>
+</a>
+
+<!-- ════════════════════════════════════
+     DAY A — UPPER BODY
+════════════════════════════════════ -->
+<div class="day-section" id="day-a">
+  <div class="day-header">
+    <div class="day-tag">A</div>
+    <div class="day-name-block">
+      <div class="day-name">Upper Body</div>
+      <div class="day-muscles">Chest · Back · Shoulders · Biceps · Triceps</div>
+    </div>
+  </div>
+
+  <!-- 1. DB Chest Press -->
+  <div class="ex-card">
+    <div class="ex-card-num">Day A · Exercise 1 of 6</div>
+    <div class="ex-card-name">Dumbbell Chest Press</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Chest</span>
+      <span class="sets-badge">3 × 10–12</span>
+      <span class="sets-badge">Start: 8–10kg</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=dumbbell+chest+press+form+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach">
+      <div class="sec-lbl">How to do it</div>
+      <div class="cue-text">Lie on the bench, feet flat on the floor. Hold a dumbbell in each hand at chest height, elbows at about 45°. Press both weights straight up until your arms are almost straight. Lower with control — 3 slow counts down. Repeat.</div>
+    </div>
+    <div class="ex-section sec-feel">
+      <div class="sec-lbl">What you should feel</div>
+      <div class="feel-text">A stretch across your chest at the bottom. A squeeze in the middle of your chest at the top. Your shoulder blades pressed into the bench throughout.</div>
+    </div>
+    <div class="ex-section sec-avoid">
+      <div class="sec-lbl">What to avoid</div>
+      <div class="avoid-item">Arching your lower back off the bench</div>
+      <div class="avoid-item">Letting the weights drop fast — control the descent</div>
+      <div class="avoid-item">Flaring elbows too wide — keep them at 45°</div>
+    </div>
+    <div class="ex-section sec-weight">
+      <div class="sec-lbl">Your Numbers</div>
+      <div class="weight-grid">
+        <div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div>
+        <div class="weight-item"><div class="weight-val">10–12</div><div class="weight-lbl">Reps</div></div>
+        <div class="weight-item"><div class="weight-val">90s</div><div class="weight-lbl">Rest</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Seated Cable Row -->
+  <div class="ex-card">
+    <div class="ex-card-num">Day A · Exercise 2 of 6</div>
+    <div class="ex-card-name">Seated Cable Row</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Back</span>
+      <span class="sets-badge">3 × 12–15</span>
+      <span class="sets-badge">Start: Light</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=seated+cable+row+form+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach">
+      <div class="sec-lbl">How to do it</div>
+      <div class="cue-text">Sit upright at the cable machine, feet on the pads, knees slightly bent. Grip the handle. Pull it toward your lower chest — lead with your elbows going straight back. At the end of the pull, squeeze your shoulder blades together hard. Hold 1 second. Let the cable return with control.</div>
+    </div>
+    <div class="ex-section sec-feel">
+      <div class="sec-lbl">What you should feel</div>
+      <div class="feel-text">A squeeze between your shoulder blades at the top. Your mid-back (lats and rhomboids) doing the work — not your biceps.</div>
+    </div>
+    <div class="ex-section sec-avoid">
+      <div class="sec-lbl">What to avoid</div>
+      <div class="avoid-item">Rounding your back to pull more weight</div>
+      <div class="avoid-item">Using momentum — swinging back and forth</div>
+      <div class="avoid-item">Pulling with your arms instead of your back</div>
+    </div>
+    <div class="ex-section sec-weight">
+      <div class="sec-lbl">Your Numbers</div>
+      <div class="weight-grid">
+        <div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div>
+        <div class="weight-item"><div class="weight-val">12–15</div><div class="weight-lbl">Reps</div></div>
+        <div class="weight-item"><div class="weight-val">75s</div><div class="weight-lbl">Rest</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Shoulder Press -->
+  <div class="ex-card">
+    <div class="ex-card-num">Day A · Exercise 3 of 6</div>
+    <div class="ex-card-name">Shoulder Press</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Shoulders</span>
+      <span class="sets-badge">3 × 10–12</span>
+      <span class="sets-badge">Start: 6–8kg</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=dumbbell+shoulder+press+seated+form" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach">
+      <div class="sec-lbl">How to do it</div>
+      <div class="cue-text">Sit on a bench with back support. Hold dumbbells at shoulder height, palms facing forward, elbows at 90°. Press both weights up until your arms are almost fully extended. Lower slowly — 3 counts — back to shoulder height.</div>
+    </div>
+    <div class="ex-section sec-feel">
+      <div class="sec-lbl">What you should feel</div>
+      <div class="feel-text">Your shoulder muscles working as you press up. A controlled burn at the top. Your core engaged to keep you stable and upright.</div>
+    </div>
+    <div class="ex-section sec-avoid">
+      <div class="sec-lbl">What to avoid</div>
+      <div class="avoid-item">Locking your elbows fully at the top — stop just short</div>
+      <div class="avoid-item">Shrugging your shoulders up toward your ears</div>
+      <div class="avoid-item">Arching your lower back — keep ribs down</div>
+    </div>
+    <div class="ex-section sec-weight">
+      <div class="sec-lbl">Your Numbers</div>
+      <div class="weight-grid">
+        <div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div>
+        <div class="weight-item"><div class="weight-val">10–12</div><div class="weight-lbl">Reps</div></div>
+        <div class="weight-item"><div class="weight-val">90s</div><div class="weight-lbl">Rest</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Lat Pulldown -->
+  <div class="ex-card">
+    <div class="ex-card-num">Day A · Exercise 4 of 6</div>
+    <div class="ex-card-name">Lat Pulldown</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Back</span>
+      <span class="sets-badge">3 × 12–15</span>
+      <span class="sets-badge">Start: Light</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=lat+pulldown+form+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach">
+      <div class="sec-lbl">How to do it</div>
+      <div class="cue-text">Sit at the lat pulldown machine, thighs under the pad. Grip the bar wider than shoulder-width. Lean back slightly, chest up. Pull the bar down to your upper chest — think "elbows to hips". Control the return all the way up.</div>
+    </div>
+    <div class="ex-section sec-feel">
+      <div class="sec-lbl">What you should feel</div>
+      <div class="feel-text">A stretch through the sides of your back (lats) at the top. A squeeze there as you pull down. Not your biceps — your back is doing the work.</div>
+    </div>
+    <div class="ex-section sec-avoid">
+      <div class="sec-lbl">What to avoid</div>
+      <div class="avoid-item">Pulling the bar behind your neck — always to your chest</div>
+      <div class="avoid-item">Swinging your torso back aggressively to pull</div>
+      <div class="avoid-item">Letting the weight pull your arms up too fast on the return</div>
+    </div>
+    <div class="ex-section sec-weight">
+      <div class="sec-lbl">Your Numbers</div>
+      <div class="weight-grid">
+        <div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div>
+        <div class="weight-item"><div class="weight-val">12–15</div><div class="weight-lbl">Reps</div></div>
+        <div class="weight-item"><div class="weight-val">75s</div><div class="weight-lbl">Rest</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Bicep Curl -->
+  <div class="ex-card">
+    <div class="ex-card-num">Day A · Exercise 5 of 6</div>
+    <div class="ex-card-name">Bicep Curl</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Biceps</span>
+      <span class="sets-badge">3 × 12–15</span>
+      <span class="sets-badge">Start: 5–6kg</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=dumbbell+bicep+curl+proper+form" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach">
+      <div class="sec-lbl">How to do it</div>
+      <div class="cue-text">Stand or sit holding dumbbells at your sides, palms facing forward. Pin your elbows to your sides — they stay still the whole time. Curl both weights up to shoulder height. Squeeze at the top. Lower slowly — 3 counts.</div>
+    </div>
+    <div class="ex-section sec-feel">
+      <div class="sec-lbl">What you should feel</div>
+      <div class="feel-text">A hard squeeze in your biceps at the top of the curl. A stretch through them at the bottom. The slow lowering phase should feel challenging.</div>
+    </div>
+    <div class="ex-section sec-avoid">
+      <div class="sec-lbl">What to avoid</div>
+      <div class="avoid-item">Swinging your body back to lift the weight — elbows stay still</div>
+      <div class="avoid-item">Dropping the weight down — the lowering phase builds muscle</div>
+      <div class="avoid-item">Going too heavy — better to use lighter weight with full control</div>
+    </div>
+    <div class="ex-section sec-weight">
+      <div class="sec-lbl">Your Numbers</div>
+      <div class="weight-grid">
+        <div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div>
+        <div class="weight-item"><div class="weight-val">12–15</div><div class="weight-lbl">Reps</div></div>
+        <div class="weight-item"><div class="weight-val">60s</div><div class="weight-lbl">Rest</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Tricep Pushdown -->
+  <div class="ex-card">
+    <div class="ex-card-num">Day A · Exercise 6 of 6</div>
+    <div class="ex-card-name">Tricep Pushdown</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Triceps</span>
+      <span class="sets-badge">3 × 12–15</span>
+      <span class="sets-badge">Start: Light</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=tricep+pushdown+cable+form+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach">
+      <div class="sec-lbl">How to do it</div>
+      <div class="cue-text">Stand facing the cable machine, close to it. Grip the rope or bar at chest height. Tuck your elbows into your sides — they stay there throughout. Push the handle down until your arms are fully extended. Squeeze at the bottom. Return with control.</div>
+    </div>
+    <div class="ex-section sec-feel">
+      <div class="sec-lbl">What you should feel</div>
+      <div class="feel-text">A hard squeeze at the back of your upper arm (triceps) at full extension. Elbows should feel like they're glued to your sides.</div>
+    </div>
+    <div class="ex-section sec-avoid">
+      <div class="sec-lbl">What to avoid</div>
+      <div class="avoid-item">Letting your elbows drift forward or flare out</div>
+      <div class="avoid-item">Leaning over the cable to use body weight</div>
+      <div class="avoid-item">Using too heavy a weight — triceps are a smaller muscle</div>
+    </div>
+    <div class="ex-section sec-weight">
+      <div class="sec-lbl">Your Numbers</div>
+      <div class="weight-grid">
+        <div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div>
+        <div class="weight-item"><div class="weight-val">12–15</div><div class="weight-lbl">Reps</div></div>
+        <div class="weight-item"><div class="weight-val">60s</div><div class="weight-lbl">Rest</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     DAY B — GLUTES & QUADS
+════════════════════════════════════ -->
+<div class="day-section" id="day-b">
+  <div class="day-header">
+    <div class="day-tag">B</div>
+    <div class="day-name-block">
+      <div class="day-name">Glutes &amp; Quads</div>
+      <div class="day-muscles">Glutes · Quads · Core</div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day B · Exercise 1 of 6</div>
+    <div class="ex-card-name">Goblet Squat</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Quads</span><span class="sets-badge">3 × 10–12</span><span class="sets-badge">Start: 8–12kg</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=goblet+squat+form+kettlebell+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Hold a kettlebell close to your chest with both hands. Feet shoulder-width apart, toes slightly turned out. Push your hips back and sit down — only as deep as is comfortable for your knee. Drive through your heels to stand back up. Keep your chest tall and proud throughout.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">A burn through your thighs (quads) and glutes. Your heels pressing firmly into the floor. Your core keeping you stable and upright.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Going deeper than is pain-free in your knee</div><div class="avoid-item">Letting your knees cave inward — push them out over your toes</div><div class="avoid-item">Leaning too far forward with your chest</div></div>
+    <div class="knee-note"><div class="knee-lbl">⚑ Knee Note</div><div class="knee-text">Only descend as far as is pain-free. If this causes knee pain, substitute with Leg Press only.</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">10–12</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">90s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day B · Exercise 2 of 6</div>
+    <div class="ex-card-name">Hip Thrust</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Glutes</span><span class="sets-badge">3 × 12–15</span><span class="sets-badge">Start: BW</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=hip+thrust+form+beginners+bench" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Sit on the floor with your upper back against a bench. Feet flat on the floor, hip-width apart. Drive your hips up by squeezing your glutes hard. At the top your body forms a straight line from shoulders to knees. Hold 2 seconds. Lower with control. Chin tucked, not looking at the ceiling.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">A powerful squeeze in your glutes at the top — if you don't feel it there, squeeze harder. Your hamstrings helping. Your lower back should not be doing the work.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Hyperextending your lower back at the top — stop at neutral</div><div class="avoid-item">Letting your hips drop to one side — keep them level</div><div class="avoid-item">Pushing through your toes — drive through your heels</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">12–15</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">75s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day B · Exercise 3 of 6</div>
+    <div class="ex-card-name">Leg Press</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Quads</span><span class="sets-badge">3 × 12–15</span><span class="sets-badge">Start: 40–60kg</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=leg+press+machine+form+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Sit in the leg press machine with your back and hips flat against the pad. Place feet mid-to-high on the platform, hip-width apart. Lower the weight by bending your knees toward your chest — stop when knees reach about 90°. Press through your heels back to start. Don't lock out your knees at the top.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">Your quads (front of thighs) and glutes doing the work. Lower back pressed into the pad the whole time.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Locking your knees at full extension — stop just short</div><div class="avoid-item">Letting your lower back lift off the pad</div><div class="avoid-item">Knees caving inward — push them apart</div></div>
+    <div class="knee-note"><div class="knee-lbl">⚑ Knee Note</div><div class="knee-text">Feet higher on the plate reduces knee stress. Never lock out. This is the safest quad exercise for OA.</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">12–15</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">90s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day B · Exercise 4 of 6</div>
+    <div class="ex-card-name">Sumo Deadlift</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Glutes</span><span class="sets-badge">3 × 10–12</span><span class="sets-badge">Start: 12–16kg</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=sumo+deadlift+dumbbell+form+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Stand with feet wider than shoulder-width, toes pointing out at 45°. Hold a dumbbell or kettlebell between your legs. Push your hips back (hinge — not a squat) while keeping your back flat. Lower the weight between your legs. Stand tall by driving your hips forward. Squeeze glutes at the top.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">Your inner thighs (adductors), glutes, and hamstrings working. A hip hinge — not a leg bend. Your back staying flat, not rounding.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Rounding your lower back — flat back is non-negotiable</div><div class="avoid-item">Squatting instead of hinging — push hips back, not knees forward</div><div class="avoid-item">Looking sharply up — keep your neck neutral</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">10–12</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">90s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day B · Exercise 5 of 6</div>
+    <div class="ex-card-name">Step-Up</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Quads</span><span class="sets-badge">3 × 10 each</span><span class="sets-badge">Start: BW</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=step+up+exercise+form+low+box" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Use a low box or step — below knee height. Place one foot fully on the box. Press through that heel to step up, bringing your other foot up to stand on the box. Step back down with control. Complete all reps on one leg before switching.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">Your lead leg doing the work — quads and glutes. Your heel pressing into the box. Controlled balance on the way down.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Using a box higher than knee height — knee protection</div><div class="avoid-item">Pushing off your back foot to help — lead leg does the work</div><div class="avoid-item">Rushing — slow and controlled is better</div></div>
+    <div class="knee-note"><div class="knee-lbl">⚑ Knee Note</div><div class="knee-text">Box must stay below knee height. If there is any knee pain, skip this exercise and add an extra set of Leg Press instead.</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">10 each</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">75s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day B · Exercise 6 of 6</div>
+    <div class="ex-card-name">Pallof Press</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Core</span><span class="sets-badge">3 × 12 each side</span><span class="sets-badge">Start: Light</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=pallof+press+cable+core+form" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Stand side-on to the cable machine. Hold the handle at your chest with both hands. Your feet are shoulder-width apart, knees slightly bent. Press your hands straight out in front of you — resist the cable pulling you sideways. Hold 2 seconds extended. Return to chest. This is anti-rotation — your whole core resists twisting.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">A deep core tension as you resist the sideways pull. Your whole midsection bracing. This is subtle but powerful — you shouldn't feel it just in your abs.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Letting your torso rotate toward the cable — resist it</div><div class="avoid-item">Holding your breath — breathe steadily</div><div class="avoid-item">Standing too far from the cable — start close</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">12 each</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">60s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     DAY C — POSTERIOR CHAIN
+════════════════════════════════════ -->
+<div class="day-section" id="day-c">
+  <div class="day-header">
+    <div class="day-tag">C</div>
+    <div class="day-name-block">
+      <div class="day-name">Posterior Chain</div>
+      <div class="day-muscles">Hamstrings · Glutes · Back</div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day C · Exercise 1 of 6</div>
+    <div class="ex-card-name">Romanian Deadlift</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Hamstrings</span><span class="sets-badge">3 × 10–12</span><span class="sets-badge">Start: 10–14kg</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=romanian+deadlift+dumbbell+form+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Stand holding dumbbells in front of your thighs. Soft bend in knees — they stay in that position. Push your hips back as if closing a car door with them. Lower the weights along your legs — feel the stretch building in your hamstrings. When you can't go further without rounding your back, drive hips forward to stand.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">A deep stretch through the back of your thighs (hamstrings) at the bottom. Your back staying flat — not rounded. Your glutes squeezing as you return to standing.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Bending your knees like a squat — this is a hip hinge</div><div class="avoid-item">Rounding your lower back at any point</div><div class="avoid-item">Going too low — only as far as your back stays flat</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">10–12</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">90s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day C · Exercise 2 of 6</div>
+    <div class="ex-card-name">Kettlebell Swing</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Glutes</span><span class="sets-badge">3 × 12–15</span><span class="sets-badge">Start: 8–12kg</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=kettlebell+swing+proper+form+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Stand with feet shoulder-width, KB on the floor in front. Hinge at hips, grab the KB. Hike it back between your legs — then snap your hips forward powerfully. The KB floats up to chest height from the hip drive. Let it swing back and repeat. Your arms guide — your hips power.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">A powerful glute squeeze every time your hips snap forward. Your hamstrings loading on the way back. This should feel explosive — like a jump without leaving the ground.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Squatting the swing — this is a hinge, not a squat</div><div class="avoid-item">Using your arms to lift the KB — hips do the work</div><div class="avoid-item">Rounding your back on the hinge</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">12–15</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">75s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day C · Exercise 3 of 6</div>
+    <div class="ex-card-name">Lying Leg Curl</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Hamstrings</span><span class="sets-badge">3 × 12–15</span><span class="sets-badge">Start: Light</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=lying+leg+curl+machine+form" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Lie face down on the leg curl machine. Adjust the pad so it sits just above your heels. Curl your legs toward your glutes with control. Squeeze at the top. Lower slowly — take 3 counts on the way down. Hamstrings love slow, controlled lowering.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">The back of your thighs burning — especially on the slow lowering phase. Your hips staying flat on the pad throughout.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Lifting your hips off the pad to help curl</div><div class="avoid-item">Letting the weight drop on the return — control it</div><div class="avoid-item">Going too heavy — you can't feel it properly with poor form</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">12–15</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">75s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day C · Exercise 4 of 6</div>
+    <div class="ex-card-name">Single-Leg Hip Thrust</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Glutes</span><span class="sets-badge">3 × 10 each</span><span class="sets-badge">Start: BW</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=single+leg+hip+thrust+form" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Same setup as the Hip Thrust — upper back on bench. Extend one leg out straight. Drive hips up using only the planted foot, squeezing your glute hard. Keep hips level — don't let one side drop. Hold 2 seconds at the top. Complete all reps, then switch legs.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">A harder squeeze in the working glute than a regular hip thrust. Any imbalance between sides will become obvious — this is exactly the point.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Letting the non-working hip drop lower than the working side</div><div class="avoid-item">Pushing through your toes — drive through your heel</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">10 each</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">75s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day C · Exercise 5 of 6</div>
+    <div class="ex-card-name">Good Morning</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Back</span><span class="sets-badge">3 × 12–15</span><span class="sets-badge">Start: BW</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=good+morning+exercise+form+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Stand with feet hip-width apart, hands behind your head (or a light bar across your upper back). Soft bend in knees. Hinge forward slowly at the hips — lower your chest toward the floor while keeping your back perfectly flat. Feel your hamstrings and lower back engage. Return to standing by driving your hips forward.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">A stretch through your hamstrings and engagement through your lower back (erector spinae). Keep the movement slow — this is not explosive.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Rounding your back at any point — flat back always</div><div class="avoid-item">Going too fast — slow and controlled only</div><div class="avoid-item">Adding weight until you have the form mastered</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">12–15</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">60s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day C · Exercise 6 of 6</div>
+    <div class="ex-card-name">Back Extension</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Back</span><span class="sets-badge">3 × 12–15</span><span class="sets-badge">Start: BW</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=back+extension+machine+form+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Position yourself on the back extension machine with the pad at your hips. Cross arms over chest. Lower your torso by hinging at the hips. Then extend back up to a neutral straight position — body forms a straight line. Squeeze your glutes at the top. Don't go beyond neutral.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">Your lower back (erectors) and glutes working. A controlled movement — not a fast snap. Neutral at the top means your body is a straight line, not arched back.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Hyperextending past neutral at the top — straight line only</div><div class="avoid-item">Going fast — slow and controlled protects your lower back</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">12–15</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">60s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     DAY D — CARDIO & CORE
+════════════════════════════════════ -->
+<div class="day-section" id="day-d">
+  <div class="day-header">
+    <div class="day-tag">D</div>
+    <div class="day-name-block">
+      <div class="day-name">Cardio &amp; Core</div>
+      <div class="day-muscles">Heart · Stability · Mobility</div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day D · Exercise 1 of 5</div>
+    <div class="ex-card-name">Stationary Bike</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Cardio</span><span class="sets-badge">20–25 min</span><span class="sets-badge">Zone 2</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=zone+2+cardio+stationary+bike+explained" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Set the bike to a resistance that feels comfortably challenging. Pedal at a steady pace for 20–25 minutes. Zone 2 means you can hold a full conversation without gasping. If you can't speak in sentences, slow down. This builds your aerobic engine and directly improves your insulin sensitivity — both are key for your goals.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">Warm, working, but not breathless. Your heart rate elevated but sustainable. By the end you should feel energised, not wrecked.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Going so hard you can't speak — that's Zone 4, not Zone 2</div><div class="avoid-item">Going so easy it feels like nothing — you should be working</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">1</div><div class="weight-lbl">Block</div></div><div class="weight-item"><div class="weight-val">20–25m</div><div class="weight-lbl">Duration</div></div><div class="weight-item"><div class="weight-val">Zone 2</div><div class="weight-lbl">Intensity</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day D · Exercise 2 of 5</div>
+    <div class="ex-card-name">Dead Bug</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Core</span><span class="sets-badge">3 × 10 each</span><span class="sets-badge">Bodyweight</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=dead+bug+exercise+core+form" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Lie on your back. Arms pointing straight up. Knees bent at 90°, shins parallel to the floor. Slowly lower your right arm back toward the floor and your left leg out straight simultaneously — without letting your lower back arch. Return. Switch sides. That's one rep each side.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">Your lower back pressed into the floor the entire time — that's the cue. Deep core tension as you resist the movement pulling your back up.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Letting your lower back arch off the floor — that's the whole exercise</div><div class="avoid-item">Rushing — slow is harder and more effective</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">10 each</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">60s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day D · Exercise 3 of 5</div>
+    <div class="ex-card-name">Plank Hold</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Core</span><span class="sets-badge">3 × 20–40s</span><span class="sets-badge">Bodyweight</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=forearm+plank+proper+form" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Forearms on the floor, elbows directly under your shoulders. Body in one straight line from head to heels. Squeeze everything — glutes, quads, core. Breathe steadily. Start at 20 seconds and build toward 40. If your form breaks, stop and rest.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">Full body tension — not just your core. Glutes and quads engaged makes a plank much more effective and protects your lower back.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Hips sagging toward the floor — squeeze glutes to fix this</div><div class="avoid-item">Hips piking up into the air</div><div class="avoid-item">Holding your breath — steady breathing throughout</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">20–40s</div><div class="weight-lbl">Hold</div></div><div class="weight-item"><div class="weight-val">60s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day D · Exercise 4 of 5</div>
+    <div class="ex-card-name">Bird Dog</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Core</span><span class="sets-badge">3 × 10 each</span><span class="sets-badge">Bodyweight</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=bird+dog+exercise+core+form" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">On hands and knees, wrists under shoulders, knees under hips. Extend your right arm forward and your left leg back simultaneously. Keep your back flat — don't rotate. Hold 2 seconds at full extension. Return slowly. Switch sides. Think "long" not "high".</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">Lower back and core stabilising to keep you level. If done right, this should feel like it's working your back as much as your abs.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Rotating your hips — keep them square to the floor</div><div class="avoid-item">Lifting your leg higher than your hip — parallel to the floor is the goal</div><div class="avoid-item">Rushing through the reps</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">10 each</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">60s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-card-num">Day D · Exercise 5 of 5</div>
+    <div class="ex-card-name">Glute Bridge</div>
+    <div class="ex-card-tags">
+      <span class="muscle-tag">Glutes</span><span class="sets-badge">3 × 15–20</span><span class="sets-badge">Bodyweight</span>
+      <a class="video-btn" href="https://www.youtube.com/results?search_query=glute+bridge+form+beginners" target="_blank">▶ Watch</a>
+    </div>
+    <div class="ex-section sec-coach"><div class="sec-lbl">How to do it</div><div class="cue-text">Lie on your back, knees bent, feet flat on the floor hip-width apart. Drive your hips up by squeezing your glutes — not pushing through your back. Hold 2 seconds at the top. Lower with control. This is the knee-friendliest glute exercise there is.</div></div>
+    <div class="ex-section sec-feel"><div class="sec-lbl">What you should feel</div><div class="feel-text">Your glutes doing the work — not your lower back. A hard squeeze at the top. Your heels pressing into the floor.</div></div>
+    <div class="ex-section sec-avoid"><div class="sec-lbl">What to avoid</div><div class="avoid-item">Pushing through your toes — drive through your heels</div><div class="avoid-item">Letting your lower back arch — squeeze glutes to keep it neutral</div></div>
+    <div class="ex-section sec-weight"><div class="sec-lbl">Your Numbers</div><div class="weight-grid"><div class="weight-item"><div class="weight-val">3</div><div class="weight-lbl">Sets</div></div><div class="weight-item"><div class="weight-val">15–20</div><div class="weight-lbl">Reps</div></div><div class="weight-item"><div class="weight-val">60s</div><div class="weight-lbl">Rest</div></div></div></div>
+  </div>
+</div>
+
+<button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to Top</button>
+
+<script>
+function filterDay(day, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.day-section').forEach(s=>{
+    if(day==='all') s.classList.remove('hidden');
+    else s.classList.toggle('hidden', s.id!=='day-'+day);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
